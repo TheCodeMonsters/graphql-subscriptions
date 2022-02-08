@@ -1,21 +1,23 @@
 type Book {
-    id: ID
-    title: String
-    author: String
+  id: ID
+  title: String
+  author: String
+  published: Int
+  genres: [String]
 }
 
 type Subscription {
-    bookAdded: Book
+  bookAdded: Book
 }
 
 type Query {
-    #Obtener todos los libros
-    books: [Book]
+  #Obtener todos los libros
+  books: [Book]
 }
 
 type Mutation {
-    #Crear un nuevo libro
-    createBook(title: String!, author: String!): Book
-    #Eliminar un libro existente
-    deleteBook(id: ID!): String
+  #Crear un nuevo libro
+  createBook(title: String!, author: String!, published: Int!, genres: [String]!): Book
+  #Eliminar un libro existente
+  deleteBook(id: ID!): String
 }

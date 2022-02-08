@@ -11,5 +11,5 @@ const typeDefs = fs.readFileSync(path.join(__dirname, 'schema.graphql'), 'utf-8'
 const apolloServer = new ApolloServer({ typeDefs, resolvers, introspection: true, playground: true });
 
 apolloServer.listen({ port: PORT }).then(({ url }) => {
-    console.log(`Running in ${url}`)
+    console.log(`Running in ${url}`);
 });

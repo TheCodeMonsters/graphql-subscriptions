@@ -1,5 +1,5 @@
 import bookResolver from './book';
 const resolvers = {
-    ...bookResolver
-}
+    ...bookResolver,
+};
 export default resolvers;

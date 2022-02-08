@@ -35,6 +35,14 @@ let books: IBook[] = [
         published: 2022,
         genres: ['Deporte', 'Futtbol']
     },
+
+    {
+        id: '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd8bid',
+        title: 'Curso de Dart desde cero',
+        author: 'Manuel Duarte',
+        published: 2022,
+        genres: ['Dart', 'Flutter', 'Programacion']
+    },
 ];
 
 const bookResolvers: IResolvers = {
@@ -42,12 +50,14 @@ const bookResolvers: IResolvers = {
         books: () => books
     },
     Mutation: {
+
         createBook: (_, payload: IBook) => {
             const book = { id: uuidv4(), ...payload };
             books.push(book);
             pubsub.publish(POST_ADDED, { bookAdded: book });
             return book;
         },
+
         deleteBook: (_, id) => {
             books = books.filter(({ id }) => id === id);
             return 'Book deleted'
