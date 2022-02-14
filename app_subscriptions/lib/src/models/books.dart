@@ -18,6 +18,5 @@ class Books {
         genres:genres
       }
     }
-  
   """;
 }
