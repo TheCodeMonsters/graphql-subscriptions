@@ -5,19 +5,30 @@ class Books {
           title
           author
           published
+          genres
         }
       } 
     """;
 
   static String mutationAdd = """
-    mutation {
-      createBook (title: "Hola", author: "Hola", published: 2022, genres: []){
-        title: title
-        author: author
-        published: published
-        genres:genres
-      }
+    mutation addBook(\$title: String!, \$author: String!, \$published: Int!) {
+        insert_books(objects: 
+              {
+                title: \$title, 
+                author: \$author, 
+                published: \$published
+              }){
+                affected_rows
+              } 
+        }
     }
-  
+  """;
+
+  static String mutationDelete = """
+      mutation deleteBook(\$id: ID!) {
+        delete_Book(where: {id: {_eq: \$id}}) {
+          affected_rows
+        }
+      }
   """;
 }

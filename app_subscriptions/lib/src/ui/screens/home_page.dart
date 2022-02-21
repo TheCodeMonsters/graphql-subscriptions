@@ -1,10 +1,18 @@
 import 'package:app_subscriptions/src/models/books.dart';
+import 'package:app_subscriptions/src/ui/screens/details_books.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+class HomePage extends StatefulWidget {
+  const HomePage({Key? key, required this.title}) : super(key: key);
 
+  final String title;
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,11 +38,36 @@ class HomePage extends StatelessWidget {
               itemCount: books.length,
               itemBuilder: (context, index) {
                 final book = books[index];
-
-                return ListTile(
-                  title: Text(book['title']),
-                  subtitle: Text(book['author']),
-                  trailing: Text(book['published'].toString()),
+                return Card(
+                  elevation: 5,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  child: ListTile(
+                    title: Text(book['title']),
+                    subtitle: Text(
+                      book['genres'].toString() + " " + book['author'],
+                    ),
+                    trailing: Text(book['published'].toString()),
+                    leading: const Icon(
+                      Icons.book,
+                      size: 40,
+                      color: Colors.blue,
+                    ),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => DetailsBooks(
+                            title: book['title'],
+                            author: book['author'],
+                            published: book['published'],
+                            id: book['id'],
+                          ),
+                        ),
+                      );
+                    },
+                  ),
                 );
               },
             );
